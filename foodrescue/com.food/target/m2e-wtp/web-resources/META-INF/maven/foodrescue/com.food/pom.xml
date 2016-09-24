@@ -7,8 +7,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging> 
 
-  <name>com.food</name>
-  <url>http://maven.apache.org</url>
+  <name>food</name>
+  <url>http://maven.apache.org</url> 
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

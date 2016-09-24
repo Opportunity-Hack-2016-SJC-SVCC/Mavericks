@@ -10,9 +10,9 @@ import javax.ws.rs.POST;
 
 @Path("/res")
 public class Controller {
-	@GET
+	@POST 
 	@Path("/register")	
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response createRestaurantInJSON(Restaurant e) throws Exception {
 		System.out.println("Helloooo");
