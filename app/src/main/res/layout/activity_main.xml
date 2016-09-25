@@ -43,22 +43,25 @@
         android:paddingBottom="20dp"
         android:hint="Password"/>
 </android.support.design.widget.TextInputLayout>
-<Button
+<android.support.v7.widget.AppCompatButton
 
         android:paddingTop="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="login"
         android:text="Login"
+    android:background="@color/colorPrimary"
+    android:textColor="@android:color/white"
         android:layout_gravity="center_horizontal"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id ="@+id/register"
-        android:text="Register"
-        android:textStyle="bold"
 
         />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorAccent"
+        android:text="Not Registered ? Register Now !"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

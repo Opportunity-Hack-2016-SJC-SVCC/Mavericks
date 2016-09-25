@@ -23,5 +23,8 @@ public class LocationsSingleton {
     public List<LocationModel> getLocations(){
         return locations;
     }
+    public void setLocation(LocationModel lm){
+        locations.add(lm);
+    }
 
 }

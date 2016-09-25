@@ -27,8 +27,12 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.TextHttpResponseHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,6 +76,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "token: "+token);
+       FirebaseMessaging.getInstance().subscribeToTopic("food");
 
         btnLocation = (FloatingActionButton) findViewById(R.id.locationSelect);
         userNameTxt = (EditText) findViewById(R.id.userName);
@@ -218,21 +225,24 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             e.printStackTrace();
         }
         HttpCalls.post( this, "http://192.168.90.249:8080/foodRescue/res/create", entity, "application/json",
-                new TextHttpResponseHandler(){
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.d(TAG, "faileddd "+statusCode);
-                        Toast.makeText(getApplicationContext(), "Error. Please try again later.",Toast.LENGTH_SHORT).show();
-                    }
+            new TextHttpResponseHandler() {
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    Log.d(TAG, "faileddd " + statusCode);
+                    Toast.makeText(getApplicationContext(), "Error. Please try again later.", Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.d(TAG, "successss "+statusCode);
-                        Toast.makeText(getApplicationContext(), "Account created successfully",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
-                    }
-                });
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    Log.d(TAG, "successss " + statusCode);
+                    //String res = responseString.toString();
+
+
+                    Toast.makeText(getApplicationContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                }
+            });
 
     }
 

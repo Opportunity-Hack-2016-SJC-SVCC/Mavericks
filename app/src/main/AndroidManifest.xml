@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mavericks.svcc.test.com.foodrescue">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,6 +27,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+
         <service
             android:name=".FMService">
             <intent-filter>
