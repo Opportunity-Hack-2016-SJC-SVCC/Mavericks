@@ -12,8 +12,8 @@
     <android.support.v7.widget.SwitchCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Reciever"
-
+        android:text="Consumer"
+        android:textAppearance="@color/colorPrimary"
         android:id="@+id/switchBtn"
 
         />
