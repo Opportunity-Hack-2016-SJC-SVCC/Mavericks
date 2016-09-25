@@ -2,10 +2,13 @@ package mavericks.svcc.test.com.foodrescue;
 
 import android.content.Context;
 import android.content.Intent;
+
+
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -97,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onClick(View view) {
+       // String android_id = Settings.Secure.getString(this.getContentResolver(),
+        //        Settings.Secure.ANDROID_ID);
+       //  JSONObject isData=
+       // Log.d("Android","Android ID : "+android_id);
        switch (view.getId()){
            case R.id.register:
             Intent i = new Intent(this, RegistrationActivity.class);

@@ -3,12 +3,15 @@ package mavericks.svcc.test.com.foodrescue;
 import android.app.DatePickerDialog;
 
 
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,10 +23,14 @@ import java.util.Locale;
 public class DonationActivity extends AppCompatActivity implements View.OnClickListener{
 EditText cal ;
 
+    private String format = "";
 
     //UI References
     private EditText fromDateEtxt;
     private EditText toDateEtxt;
+
+    private TimePicker fromTimeExt;
+    private TimePicker toTimeExt;
 
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
@@ -32,6 +39,9 @@ EditText cal ;
     private String  fromDate;
     private String toDate;
 
+    private String  fromTime;
+    private String toTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +49,23 @@ EditText cal ;
         fromDateEtxt = (EditText) findViewById(R.id.calendarFrom);
         toDateEtxt = (EditText) findViewById(R.id.calendarTo);
 
+        fromTimeExt= (TimePicker) findViewById(R.id.fromTime);
+        toTimeExt= (TimePicker) findViewById(R.id.toTime);
+        //time = (TextView) findViewById(R.id.textView1);
+
+
+
         dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         findViewsById();
 
         setDateTimeField();
+        setfromTimeField();
+        settoTimeField();
+
+
+        Intent i = new Intent(getApplicationContext(), Submit.class);
+        startActivity(i);
     }
 
     private void findViewsById() {
@@ -54,6 +76,51 @@ EditText cal ;
         toDateEtxt = (EditText) findViewById(R.id.calendarTo);
         toDateEtxt.setInputType(InputType.TYPE_NULL);
     }
+private void setfromTimeField()
+{
+
+    fromTimeExt.setOnClickListener(this);
+
+    Calendar  calendar = Calendar.getInstance();
+
+    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+    int min = calendar.get(Calendar.MINUTE);
+     fromTime= showTime(hour, min);
+
+}
+
+    private void settoTimeField(){
+
+        toTimeExt.setOnClickListener(this);
+        Calendar  calendar = Calendar.getInstance();
+
+        int hour1 = calendar.get(Calendar.HOUR_OF_DAY);
+        int min1 = calendar.get(Calendar.MINUTE);
+       toTime= showTime(hour1, min1);
+    }
+
+    public String showTime(int hour, int min) {
+        if (hour == 0) {
+            hour += 12;
+            format = "AM";
+        }
+        else if (hour == 12) {
+            format = "PM";
+        } else if (hour > 12) {
+            hour -= 12;
+            format = "PM";
+        } else {
+            format = "AM";
+        }
+
+        return (Integer.toString(hour)+Integer.toString(min));
+       // (new StringBuilder().append(hour).append(" : ").append(min)
+           //    .append(" ").append(format));
+
+
+    }
+
+
 
     private void setDateTimeField() {
         fromDateEtxt.setOnClickListener(this);

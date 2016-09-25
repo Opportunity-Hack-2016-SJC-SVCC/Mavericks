@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+<!-- android:layout_width="match_parent"
+      androi/d:layout_height="wrap_content">-->
+
    <EditText
        android:id="@+id/calendarFrom"
        android:layout_width="wrap_content"
@@ -13,22 +16,23 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        />
-    <EditText
+    <TimePicker
+        android:id="@+id/fromTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/timeFrom"
         android:text = "Time From"
         />
-    <EditText
+    <TimePicker
+        android:id="@+id/toTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/timeTo"
         android:text = "Time to"
         />
 
   <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/datePick"/>
+      android:id="@+id/submit"/>
+ <!-- </ScrollView>-->
 
 </LinearLayout>

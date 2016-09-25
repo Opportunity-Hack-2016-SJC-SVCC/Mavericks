@@ -2,6 +2,7 @@ package mavericks.svcc.test.com.foodrescue;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -106,9 +107,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 //       ActionBar actionBar = getActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 
-       androidId =
-                Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.i(TAG, androidId +"android id");
+
+
+
+      // androidId =
+              //  Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
+      //  Log.i(TAG, androidId +"android id");
 
 
 
