@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FoodRescue</string>
+    <string name="google_maps_key">AIzaSyDFVftC1bnUNERcwa4v7PlXffA3SINweg8</string>
+    <string name="url"></string>
 </resources>

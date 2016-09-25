@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "390458074338",
+    "firebase_url": "https://svccrescue-1474750031288.firebaseio.com",
+    "project_id": "svccrescue-1474750031288",
+    "storage_bucket": "svccrescue-1474750031288.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390458074338:android:475b6c5e9d529885",
+        "android_client_info": {
+          "package_name": "mavericks.svcc.test.com.foodrescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390458074338-1iuavtdlapm1ndcidhpkp3svh0f2e06a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mavericks.svcc.test.com.foodrescue",
+            "certificate_hash": "565299398039BDC92393C451CFCEC1CCB24951DF"
+          }
+        },
+        {
+          "client_id": "390458074338-p68rubr2qo98k8vsd4d3m8ag3fioqrel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mavericks.svcc.test.com.foodrescue",
+            "certificate_hash": "793E9E77BB22A11D346B01FFB3313BCABC67A0E7"
+          }
+        },
+        {
+          "client_id": "390458074338-9h7j8crl1feuta33bhfjd4mvc03bgpts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAbHiPSUTpywGDY14iMfuqFIa96xN6G9g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390458074338-9h7j8crl1feuta33bhfjd4mvc03bgpts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
