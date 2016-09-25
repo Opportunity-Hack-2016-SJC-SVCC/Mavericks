@@ -58,5 +58,10 @@
 	    <version>2.19</version>  
 	    <!-- make sure the jersey version matches the one you are using -->
 	</dependency>
+	<dependency>
+	    <groupId>com.twilio.sdk</groupId>
+	    <artifactId>twilio-java-sdk</artifactId>
+	    <version>(6.0,6.9)</version>
+	</dependency> 
   </dependencies> 
 </project>

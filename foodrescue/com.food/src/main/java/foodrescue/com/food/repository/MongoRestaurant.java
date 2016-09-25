@@ -33,6 +33,7 @@ public class MongoRestaurant {
 		try {
 			System.out.println("Going to insert data"); 
 			BasicDBObject document = new BasicDBObject();
+			
 			document.put("name", restaurant.getName());
 			document.put("address", restaurant.getAddress()); 
 			document.put("city", restaurant.getCity()); 

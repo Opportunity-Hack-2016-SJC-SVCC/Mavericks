@@ -18,6 +18,7 @@ public class Controller {
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.APPLICATION_JSON) 
 	public Response createRestaurantInJSON(Restaurant e) throws Exception {
+		System.out.println("Got Request....."+e.getName());
 		MongoMain m=new MongoMain();
 		m.insertData(e); 
 		return Response.ok().entity("").build(); 
