@@ -1,0 +1,66 @@
+package foodrescue.com.food;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+public class User{
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", deviceId=" + deviceId + ", phone=" + phone + ", location=" + location
+				+ ", password=" + password + "]";
+	}
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+
+	private String name;
+	private String deviceId;
+	private String phone;
+	private String location;
+	private String password;
+	private String latitude;
+	private String longitude;
+	
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+}

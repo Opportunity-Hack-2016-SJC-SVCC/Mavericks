@@ -1,5 +1,7 @@
 package foodrescue.com.food;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Restaurant {
 	private String name;
 	private String address;
@@ -57,10 +59,19 @@ public class Restaurant {
 	public String getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(String longitude) {
+	public void setLongitude(String longitude) { 
 		this.longitude = longitude;
 	}
+	private String date;
 	
+	
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	@Override
 	public String toString() {
 		return "Restaurant [Name=" + name + ", address=" + address + ", city=" + city + ", zip="

@@ -23,6 +23,6 @@ public class TwilioServlet extends HttpServlet {
         }
 
         response.setContentType("application/xml");
-        response.getWriter().print(twiml.toXML());
+        response.getWriter().print(twiml.toXML()); 
     }
 }

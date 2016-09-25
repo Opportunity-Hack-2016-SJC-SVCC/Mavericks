@@ -1,15 +1,21 @@
 package foodrescue.com.food.repository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-import foodrescue.com.food.Restaurant; 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.CommandResult;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+
+import foodrescue.com.food.Restaurant;
 
 public class MongoRestaurant {
 
@@ -29,30 +35,60 @@ public class MongoRestaurant {
 		return this.db;
 	}
 
-	public boolean insertData(Restaurant restaurant) {
-		try {
-			System.out.println("Going to insert data"); 
-			BasicDBObject document = new BasicDBObject();
-			
-			document.put("name", restaurant.getName());
-			document.put("address", restaurant.getAddress()); 
-			document.put("city", restaurant.getCity()); 
-			document.put("zip", restaurant.getZip()); 
-			double[] locs = { Double.parseDouble(restaurant.getLatitude()),
-					Double.parseDouble(restaurant.getLongitude()) };
-			document.put("locs", locs);
-			document.put("phone", restaurant.getPhone());
-			document.put("password", restaurant.getPassword());
-			System.out.println("Got data"); 
-			this.col.insert(document);
-			return true;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 
+	// Insert data
+		public boolean insertData(Restaurant restaurant) {
+			try {
+
+				if (getData(restaurant.getPhone())) { 
+					return false;
+				}
+
+				BasicDBObject document = new BasicDBObject();
+				document.put("name", restaurant.getName());
+				document.put("address", restaurant.getAddress()); 
+				document.put("city", restaurant.getCity()); 
+				document.put("zip", restaurant.getZip()); 
+				double[] locs = { Double.parseDouble(restaurant.getLongitude()),
+						Double.parseDouble(restaurant.getLatitude()) };
+				document.put("locs", locs);
+				document.put("latitude", restaurant.getLatitude());
+				document.put("longitude", restaurant.getLongitude());
+				document.put("phone", restaurant.getPhone());
+				document.put("password", restaurant.getPassword());
+				document.put("flag", 0);
+				this.col.insert(document);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
+		// Check Duplicates
+		private boolean getData(String phone) {
+			try {
+				BasicDBObject document = new BasicDBObject();
+
+				Restaurant restaurant = new Restaurant();
+
+				document.put("phone", phone);
+
+				DBCursor cursor = this.col.find(document);
+
+				if (cursor.size() != 0) {
+					return true;
+				} else {
+					return false;
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				return true;
+			}
+		}
+	
+	
 	public Restaurant login(String phone, String password) {
 		try {
 			BasicDBObject document = new BasicDBObject();
@@ -80,39 +116,92 @@ public class MongoRestaurant {
 		}
 	}
 	
-	public boolean updateData(Restaurant restaurant) {
-		return false;
-	}
+	
+	// Update Data
+		public boolean updateData(Restaurant restaurant) {
+			try {
 
-	// Find Restaurants
-	public List<Restaurant> retrieveData(String latitude, String longitude) {
-		List<Restaurant> restaurants = new ArrayList<>();
+				BasicDBObject newDocument = new BasicDBObject();
 
-		BasicDBObject myCmd = new BasicDBObject();
-		myCmd.append("geoNear", "data");
-		double[] loc = { Double.parseDouble(latitude), Double.parseDouble(longitude) };
-		
-		myCmd.append("near", loc);
-		myCmd.append("spherical", true);
-		myCmd.append("maxDistance", (double) 2500 / 6378137);
-		myCmd.append("distanceMultiplier", 6378137);
-		
-		System.out.println(myCmd);
+				BasicDBObject searchQuery = new BasicDBObject().append("hosting", "hostB");
 
-		DBCursor cursor = this.col.find(myCmd);
-		
-		Restaurant restaurant = null;
-		while (cursor.hasNext()) {
-			DBObject t = cursor.next();
-			restaurant = new Restaurant();
-			restaurant.setName(t.get("name").toString());
-			restaurant.setAddress(t.get("address").toString());
-			restaurants.add(restaurant);
+				double[] locs = { Double.parseDouble(restaurant.getLongitude()),
+						Double.parseDouble(restaurant.getLatitude()) };
+				BasicDBObject document = new BasicDBObject();
+				document.append("$set",
+						new BasicDBObject().append("phone", restaurant.getPhone())
+								.append("address", restaurant.getAddress()).append("locs", locs)
+								.append("latitude", restaurant.getLatitude()).append("longitude", restaurant.getLongitude())
+								.append("password", restaurant.getPassword()).append("name", restaurant.getName())
+								.append("flag", 1).append("date", restaurant.getDate())); 
+
+				BasicDBObject query = new BasicDBObject().append("phone", restaurant.getPhone());
+
+				this.col.update(query, document);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 
-		return restaurants;
+		// find restaurants
+		boolean isValidLngLat(double lng, double lat) {
+			return lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+		}
 
-	}
+		// Find Restaurants
+		public List<Restaurant> retrieveData(String latitude, String longitude) {
+
+			List<Restaurant> restaurants = new ArrayList<>();
+
+			try {
+
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); 
+				Date date = new Date(); 
+
+				BasicDBObject myCmd = new BasicDBObject();
+				BasicDBObject index = new BasicDBObject("locs", "2d");
+				BasicDBObject flagQuery = new BasicDBObject("flag", Constants.AVAILABLE).append("date",
+						dateFormat.format(date));
+				myCmd.append("geoNear", "restaurants");
+				double[] loc = { Double.parseDouble(longitude), Double.parseDouble(latitude) };
+				myCmd.append("near", loc);
+				myCmd.append("spherical", true);
+				myCmd.append("maxDistance", Constants.maxDistance);
+				myCmd.append("nums", Constants.LIMIT);
+				myCmd.append("query", flagQuery);
+
+				if (!isValidLngLat(loc[0], loc[1])) {
+					System.out.println("Location coordinates are not valid");
+					return null;
+				}
+				System.out.println(myCmd);
+				this.col.createIndex(index);
+				CommandResult cmdResult = this.db.command(myCmd);
+				Restaurant restaurant = null;
+
+				BasicDBList results = (BasicDBList) cmdResult.get("results");
+
+				for (Iterator<Object> it = results.iterator(); it.hasNext();) {
+					BasicDBObject result = (BasicDBObject) it.next();
+					restaurant = new Restaurant();
+					BasicDBObject dbo = (BasicDBObject) result.get("obj");
+					restaurant.setName(dbo.getString("name"));
+					restaurant.setAddress(dbo.getString("address")); 
+					restaurant.setPhone(dbo.getString("phone"));
+					restaurants.add(restaurant);
+				}
+				return restaurants;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return restaurants;
+
+		}
+
 
 	public boolean removeData(String restId) {
 		
