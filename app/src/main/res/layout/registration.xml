@@ -9,6 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".RegistrationActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reciever"
+
+            android:id="@+id/switchBtn"
+
+            />
+    </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_layout"
@@ -107,8 +120,14 @@
             android:id="@+id/confirmPassword"
             android:hint="Confirm Password"/>
     </android.support.design.widget.TextInputLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
+<android.support.v7.widget.SwitchCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

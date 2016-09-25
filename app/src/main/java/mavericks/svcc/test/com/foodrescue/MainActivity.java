@@ -3,9 +3,11 @@ package mavericks.svcc.test.com.foodrescue;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText passwd;
     String phoneId;
     String password;
+    SwitchCompat switchC;
     private final String TAG = "Login Activity";
 
     @Override
@@ -36,6 +39,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerBtn.setOnClickListener(this);
         phnTxt = (EditText) findViewById(R.id.phone);
         passwd = (EditText) findViewById(R.id.password);
+        switchC = (SwitchCompat)findViewById(R.id.switchBtn);
+        switchC.setChecked(false);
+        switchC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switchC.setText("Donor");
+                }else
+                    switchC.setText("Consumer");
+
+            }
+        });
 
     }
 
@@ -45,7 +60,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       //  Datentime fragment=new Datentime();
         phoneId = phnTxt.getText().toString();
         password = phnTxt.getText().toString();
-        Intent intent = new Intent(MainActivity.this, DonationActivity.class);
+        Intent intent;
+        if(switchC.isChecked()){
+            intent = new Intent(MainActivity.this, DonationActivity.class);
+        }
+         else{
+            intent = new Intent(MainActivity.this, SuggestLocationsActivity.class);
+        }
 
         startActivity(intent);
     }

@@ -6,9 +6,11 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.android.volley.AuthFailureError;
@@ -60,6 +62,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     UserProfile userProfile = null;
     String latitude;
     String longitude;
+    private SwitchCompat switchC;
 
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final String TAG = "Registration Activity";
@@ -81,6 +84,18 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         cityTxt = (EditText)findViewById(R.id.city);
         btnLocation.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        switchC = (SwitchCompat)findViewById(R.id.switchBtn);
+        switchC.setChecked(false);
+        switchC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    switchC.setText("Donor");
+                }else
+                    switchC.setText("Consumer");
+
+            }
+        });
 //       ActionBar actionBar = getActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 
