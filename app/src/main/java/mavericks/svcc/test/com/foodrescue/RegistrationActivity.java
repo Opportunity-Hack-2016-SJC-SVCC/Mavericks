@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,8 +25,6 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import org.json.JSONException;
@@ -40,9 +37,8 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
-import cz.msebera.android.httpclient.protocol.HTTP;
 
-public class Registration extends AppCompatActivity implements View.OnClickListener  {
+public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener  {
     GoogleApiClient mGoogleApiClient;
     FloatingActionButton btnLocation;
     EditText userNameTxt;
@@ -72,7 +68,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.registration);
 
         btnLocation = (FloatingActionButton) findViewById(R.id.locationSelect);
         userNameTxt = (EditText) findViewById(R.id.userName);
@@ -85,6 +81,8 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
         cityTxt = (EditText)findViewById(R.id.city);
         btnLocation.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+//       ActionBar actionBar = getActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
 
        androidId =
                 Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -179,11 +177,7 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 String latLngStr =  latLng.toString().substring(10).replace(")", "");
-              /*  Log.i("lat long", latLng.toString().substring(10).replace(")",""));
-                Log.i("Coordinates","location="+urlEncoded + "&cll=" + latLngStr );*/
-//                coordinates = "location="+urlEncoded + "&cll=" + latLngStr;
-//                executeSearch(coordinates);
-                //getActivity().onBackPressed();
+
             }
         }
     }
@@ -213,16 +207,16 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                         Log.d(TAG, "faileddd "+statusCode);
+                        Toast.makeText(getApplicationContext(), "Error. Please try again later.",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String responseString) {
                         Log.d(TAG, "successss "+statusCode);
                         Toast.makeText(getApplicationContext(), "Account created successfully",Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(i);
                     }
-
-
-
                 });
 
     }
@@ -247,10 +241,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("user","sv");
-//                params.put("pass",userAccount.getPassword());
-//                params.put("comment", Uri.encode(comment));
-//                params.put("comment_post_ID",String.valueOf(postId));
-//                params.put("blogId",String.valueOf(blogId));
 
                 return params;
             }
