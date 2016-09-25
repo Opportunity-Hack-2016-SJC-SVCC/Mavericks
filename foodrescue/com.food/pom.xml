@@ -47,5 +47,16 @@
         <artifactId>jersey-server</artifactId>
         <version>2.19</version>
     </dependency>
+    <dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>3.3.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-json-jackson</artifactId>
+	    <version>2.19</version>  
+	    <!-- make sure the jersey version matches the one you are using -->
+	</dependency>
   </dependencies> 
 </project>

@@ -1,22 +1,40 @@
 package foodrescue.com.food;
 
 public class Restaurant {
-	private String Name;
-	private String Location;
-	private String password;
-	private String Phone;
+	private String name;
+	private String address;
+	private String city;
+	private String zip;
 	
+	private String password;
+	private String phone;
+	
+	private String latitude;
+	private String longitude;
+		
+	public String getCity() { 
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getZip() {
+		return zip;
+	}
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 	public String getName() {
-		return Name;
+		return name;
 	}
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
-	public String getLocation() {
-		return Location;
+	public String getAddress() {
+		return address;
 	}
-	public void setLocation(String location) {
-		Location = location;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getPassword() {
 		return password;
@@ -25,9 +43,28 @@ public class Restaurant {
 		this.password = password;
 	}
 	public String getPhone() {
-		return Phone;
+		return phone;
 	}
 	public void setPhone(String phone) {
-		Phone = phone;
+		this.phone = phone;
 	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	
+	@Override
+	public String toString() {
+		return "Restaurant [Name=" + name + ", address=" + address + ", city=" + city + ", zip="
+				+ zip + ", password=" + password + ", Phone=" + phone + "latitude"+latitude+" "+longitude+"]";
+	}
+	
 }
