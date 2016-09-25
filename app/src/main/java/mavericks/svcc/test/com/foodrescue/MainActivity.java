@@ -146,7 +146,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 object = responseString.getJSONObject(i);
                                 LocationModel lm = new LocationModel();
                              //  Log.d(TAG, "phone is "+ object.get("phone"));
+                               // if(object)
                                 lm.setAddress(object.get("address").toString());
+                                lm.setName(object.get("name").toString());
+
                                 lm.setPhone(object.get("phone").toString());
                                 LocationsSingleton.getInstance().setLocation(lm);
 

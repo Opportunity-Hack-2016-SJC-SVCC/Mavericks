@@ -8,14 +8,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 /**
  * Created by savani on 9/25/16.
@@ -41,6 +54,8 @@ EditText cal ;
 
     private String  fromTime;
     private String toTime;
+    private Button btnSubmit;
+    private final String  TAG = "Donation activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,8 @@ EditText cal ;
         fromTimeExt= (TimePicker) findViewById(R.id.fromTime);
         toTimeExt= (TimePicker) findViewById(R.id.toTime);
         //time = (TextView) findViewById(R.id.textView1);
+        btnSubmit = (Button) findViewById(R.id.submit);
+        btnSubmit.setOnClickListener(this);
 
 
 
@@ -64,8 +81,7 @@ EditText cal ;
         settoTimeField();
 
 
-        Intent i = new Intent(getApplicationContext(), Submit.class);
-        startActivity(i);
+
     }
 
     private void findViewsById() {
@@ -92,6 +108,9 @@ private void setfromTimeField()
     private void settoTimeField(){
 
         toTimeExt.setOnClickListener(this);
+//        Intent i = new Intent(this, Submit.class);
+//        startActivity(i);
+
         Calendar  calendar = Calendar.getInstance();
 
         int hour1 = calendar.get(Calendar.HOUR_OF_DAY);
@@ -162,5 +181,56 @@ private void setfromTimeField()
         } else if(view == toDateEtxt) {
             toDatePickerDialog.show();
         }
+        else if(view.getId() == R.id.submit ){
+            uploadData();
+
+    }}
+    void uploadData(){
+        Log.d(TAG, "upload start");
+        JSONObject jsonParams = new JSONObject();
+//        37.37690249999999,
+//                -121.92172265625
+//        ],
+        try {
+            jsonParams.put("latitude"," 37.37690249999999,");
+            jsonParams.put("longitude", "-121.92172265625");
+            jsonParams.put("phone","45678909999");
+            jsonParams.put("date","17/7/2016");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(jsonParams.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        //Inform that you are  serving food.
+        HttpCalls.post( this, "http://726317ae.ngrok.io/foodRescue/res/pushNotifications", entity, "application/json",
+                new JsonHttpResponseHandler(){
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        Log.d(TAG, "faileddd "+statusCode);
+                       //  Toast.makeText(getApplicationContext(), "Error. Please try again later.",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray responseString) {
+                        Log.d(TAG, "successss "+statusCode + "response "+responseString);
+
+
+
+                        //    Toast.makeText(getApplicationContext(), "",Toast.LENGTH_SHORT).show();
+//                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(i);
+
+                    }
+                });
+        Intent intent = new Intent(DonationActivity.this, Submit.class);
+        startActivity(intent);
+
     }
+
 }
+

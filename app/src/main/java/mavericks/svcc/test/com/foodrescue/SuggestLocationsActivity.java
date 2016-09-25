@@ -40,41 +40,41 @@ public class SuggestLocationsActivity extends AppCompatActivity {
 
     }
 
-    void uploadData(){
-        Log.d(TAG, "upload start");
-        JSONObject jsonParams = new JSONObject();
-        try {
-            jsonParams.put("name", "dh");
-//            jsonParams.put("address", address);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(jsonParams.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        HttpCalls.post( this, "http://192.168.90.249:8080/foodRescue/res/create", entity, "application/json",
-                new JsonHttpResponseHandler(){
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        Log.d(TAG, "failed to get locations "+statusCode);
-                        Toast.makeText(getApplicationContext(), "Error. Please try again later.",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                        Log.d(TAG, "success locations "+statusCode);
-                        adapter.notifyDataSetChanged();
-
-
-                        Toast.makeText(getApplicationContext(), "Account created successfully",Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
-                    }
-                });
-
-    }
+//    void uploadData(){
+//        Log.d(TAG, "upload start");
+//        JSONObject jsonParams = new JSONObject();
+//        try {
+//            jsonParams.put("name", "dh");
+////            jsonParams.put("address", address);
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        StringEntity entity = null;
+//        try {
+//            entity = new StringEntity(jsonParams.toString());
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        HttpCalls.post( this, "http://192.168.90.249:8080/foodRescue/res/create", entity, "application/json",
+//                new JsonHttpResponseHandler(){
+//                    @Override
+//                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                        Log.d(TAG, "failed to get locations "+statusCode);
+//                        Toast.makeText(getApplicationContext(), "Error. Please try again later.",Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, String responseString) {
+//                        Log.d(TAG, "success locations "+statusCode);
+//                        adapter.notifyDataSetChanged();
+//
+//
+//                        Toast.makeText(getApplicationContext(), "Account created successfully",Toast.LENGTH_SHORT).show();
+//                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(i);
+//                    }
+//                });
+//
+//    }
 }
