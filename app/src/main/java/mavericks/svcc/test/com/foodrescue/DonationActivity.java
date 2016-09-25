@@ -29,11 +29,13 @@ EditText cal ;
     private DatePickerDialog toDatePickerDialog;
 
     private SimpleDateFormat dateFormatter;
+    private String  fromDate;
+    private String toDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.article_view);
         fromDateEtxt = (EditText) findViewById(R.id.calendarFrom);
         toDateEtxt = (EditText) findViewById(R.id.calendarTo);
 

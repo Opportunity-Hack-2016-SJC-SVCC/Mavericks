@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-    <EditText android:id="@+id/text"
+    <EditText android:id="@+id/phone"
         android:layout_width="match_parent"
          android:inputType="number"
         android:layout_height="wrap_content"
@@ -35,14 +35,14 @@
         android:paddingBottom="20dp"
         android:hint="Password"/>
 </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+<Button
 
-         app:fabSize="normal"
         android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:onClick="login" />
+        android:onClick="login"
+        />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
